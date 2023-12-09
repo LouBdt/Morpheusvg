@@ -50,6 +50,8 @@ It should generate a .html file (that could be veeeeery big depending on your sv
 
 
 #============DISCLAIMERS==================
+
+
 The python script is creative common but I don't know if the original JS is as well. Use it carefully
 
 
