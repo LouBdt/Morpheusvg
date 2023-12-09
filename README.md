@@ -41,6 +41,9 @@ If you open the .py file with a text editor, you can adjust:
   FILE = "Hope it works this time" #the name of the html file generated
 
   
+  SIZE = 6 #in inches
+
+  
 Then run the python code, it has no special requirements
 
 
