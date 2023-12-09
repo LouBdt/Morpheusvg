@@ -8,43 +8,46 @@ Created on Wed Dec  6 19:35:06 2023
 #==============================================
 TRANSFO = "linear" #or linear, elastic, backout, backin, bounce
 DURATION = 1000 #in ms
+SIZE = 6 #in inches
 PAGENAME = "Animation"
-HEAD = "What you want to write above your html page"
-FILE = "Hope it works this time" #the name of the html file generated
+HEAD = "Header for your animation"
+FILE = "Evolution" #the name of the html file generated
 #==============================================
 
 
 
 ALPHA = "abcdefghijklmnopqrstuvwxyz"
 ALPHA+=ALPHA.upper()
-VAR = list(ALPHA)+["a"+ALPHA[i] for i in range(len(ALPHA))]
+VAR = list(ALPHA)+["a"+ALPHA[i] for i in range(len(ALPHA))]+["b"+ALPHA[i] for i in range(len(ALPHA))]+["c"+ALPHA[i] for i in range(len(ALPHA))]
 
 import os
 allcorps = []
 ind = 0
 #Importing all SVG files in the cwd and extracting only the code of the paths
+allfiles = []
 for filename in os.listdir(os.getcwd()):
     if filename.endswith(".svg"):
-        print(filename)
-        with open(filename, 'r') as f:
-            text=f.readlines()
-        corps = []
-        i=0
-        while not text[i].startswith('        d='):
-            i+=1
-        for j in range(i,len(text)):
-            corps.append(text[j])
-            if text[j].endswith(" />\n"):
-                break
+        allfiles.append(filename)
+allfiles = sorted(allfiles)
+print(allfiles)
+for filename in allfiles:
+    with open(filename, 'r') as f:
+        text=f.readlines()
+    corps = []
+    i=0
+    while not text[i].startswith('        d='):
+        i+=1
+    for j in range(i,len(text)):
+        corps.append(text[j])
+        if text[j].endswith(" />\n"):
+            break
             
-        allcorps.append(corps)
-        ind+=1
-
-preambule=['<!DOCTYPE html>\n', '<!--\n', 'Created using JS Bin\n', 'http://jsbin.com\n', '\n', 'Copyright (c) 2023 by ahmedam55 (http://jsbin.com/zeloziw/1/edit)\n', '\n', 'Released under the MIT license: http://jsbin.mit-license.org\n', '-->\n', '<meta name="robots" content="noindex">\n', '<html>\n', '<head>\n', '  <meta charset="utf-8">\n', '  <meta name="viewport" content="width=device-width">\n', '  <title>{PN}</title>\n'.format(PN = PAGENAME), '<style id="jsbin-css">\n', 'h1{\n', '  text-align:center;\n', '}\n', 'svg {\n', '    display: block;\n', '    margin: 0 auto;\n', '}\n', '</style>\n', '</head>\n', '<body>\n', "<h1>{h}</h1>\n".format(h = HEAD), '  \n', '<svg xmlns="http://www.w3.org/2000/svg" id="cups"\n', '     width="10in" height="10in"\n', '     viewBox="0 0 1000 1000">\n']
+    allcorps.append(corps)
+    ind+=1
+preambule=['<!DOCTYPE html>\n', '<!--\n', 'Created using JS Bin\n', 'http://jsbin.com\n', '\n', 'Copyright (c) 2023 by ahmedam55 (http://jsbin.com/zeloziw/1/edit)\n', '\n', 'Released under the MIT license: http://jsbin.mit-license.org\n', '-->\n', '<meta name="robots" content="noindex">\n', '<html>\n', '<head>\n', '  <meta charset="utf-8">\n', '  <meta name="viewport" content="width=device-width">\n', '  <title>{PN}</title>\n'.format(PN = PAGENAME), '<style id="jsbin-css">\n', 'h1{\n', '  text-align:center;\n', '}\n', 'svg {\n', '    display: block;\n', '    margin: 0 auto;\n', '}\n', '</style>\n', '</head>\n', '<body>\n', "<h1>{h}</h1>\n".format(h = HEAD), '  \n', '<svg xmlns="http://www.w3.org/2000/svg" id="cups"\n', '     width="{s}in" height="{s}in"\n'.format(s = SIZE), '     viewBox="0 0 1000 1000">\n']
 header = ['  <path id="{ID}"\n', '        fill="black" stroke="black" stroke-width="0"\n']
 footer1 = ['\n', '</svg>\n', '  \n', '  <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>\n', '<script id="jsbin-javascript">\n', 'var svg = document.getElementById("cups");\n', 'var s = Snap(svg);\n', '\n']
 footer2 = ['</script>\n', '</body>\n', '</html>\n']
-
 
 ind = 0
 vardec = []
