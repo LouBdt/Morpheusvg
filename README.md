@@ -62,3 +62,8 @@ I don't know anything about javascript, or object-oriented programmation, the co
 
 
 If you make fun animations with this script, don't hesitate to send me the result, I'd be happy to see it ! > charlie_brt@riseup.net
+
+
+
+
+Many thanks to @kiwifraise@masto.bike for their help !
